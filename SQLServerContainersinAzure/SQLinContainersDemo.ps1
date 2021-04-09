@@ -139,6 +139,17 @@ az container create \
 #    --azure-file-volume-share-name $ACI_PERS_SHARE_NAME \
 #    --azure-file-volume-mount-path /var/opt/mssql
 
+
+# AZ Container create with Resource Groups Subscription Added
+az container create \
+   --resource-group RG-Containers --name sqlcontainer \
+   --image mcr.microsoft.com/mssql/server --cpu 2 --memory 4 \
+   --vnet /subscriptions/0962ec77-da5d-4d73-abc6-74f74ff3b820/resourceGroups/RG-Containers/providers/Microsoft.Network/virtualNetworks/VNET-Infra-SCUS-Subnets \
+   --subnet /subscriptions/0962ec77-da5d-4d73-abc6-74f74ff3b820/resourceGroups/RG-Containers/providers/Microsoft.Network/virtualNetworks/VNET-Infra-SCUS-Subnets/subnets/ACISubnet \
+   --ports 1433 \
+   --e ACCEPT_EULA=Y SA_PASSWORD=V3ryStr0ngPa55!
+
+
 az container show --resource-group RG-Containers --name sqlcontainer \
    --query "{FQDN:ipAddress.fqdn,IP:ipAddress.ip,ProvisioningState:provisioningState}" \
    --out table
