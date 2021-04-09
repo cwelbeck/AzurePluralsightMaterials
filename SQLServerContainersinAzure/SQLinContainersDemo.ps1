@@ -112,6 +112,7 @@ SERVERPROPERTY('InstanceDefaultLogPath') AS InstanceDefaultLogPath
 
 docker stop mySqlContainer
 docker rm mySqlContainer
+docker volume rm sqldata1
 
 
 #ACI Demo SQL deploy
